@@ -17,11 +17,15 @@ namespace HelloWorldWeb.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            teamInfo = new TeamInfo();
-            teamInfo.Name = "Team1";
-            teamInfo.TeamMembers = new List<string>();
-            
-        }
+            teamInfo = new TeamInfo
+            {
+            Name = "Team1",
+            TeamMembers = new List<string>()
+           
+            };
+
+            teamInfo.TeamMembers.AddRange(new string[] { "Fineas", "Emma", "Patrick", "Tudor", "Radu P." });
+    }
 
         public IActionResult Index()
         {
