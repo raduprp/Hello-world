@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TeamInfo
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,6 +11,16 @@
 <div class="text-center">
     <h1 class="display-4">Our team</h1>
     <ul id="teamList">
+        @for (var i = 0; i < Model.TeamMembers.Count; i++)
+        {
+            var member = Model.TeamMembers[i];
+
+
+
+            <li class="member">
+                @member
+            </li>
+        }
         <li>Fineas</li>
         <li>Patrick</li>
         <li>Tudor</li>
