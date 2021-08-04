@@ -1,62 +1,58 @@
-﻿// <copyright file="HomeController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="HomeController.cs" company="Principal 33 Solutions">
+// Copyright (c) Principal 33 Solutions. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+using System.Diagnostics;
 using HelloWorldWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HelloWorldWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
         private readonly TeamInfo teamInfo;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
-            teamInfo = new TeamInfo
+            this.logger = logger;
+            this.teamInfo = new TeamInfo
             {
             Name = "Team1",
-            TeamMembers = new List<string>()
-           
+            TeamMembers = new List<string>(),
             };
 
-            teamInfo.TeamMembers.AddRange(new string[] { "Fineas", "Emma", "Patrick", "Tudor", "Radu P." });
+            this.teamInfo.TeamMembers.AddRange(new string[] { "Fineas", "Emma", "Patrick", "Tudor", "Radu P." });
     }
 
-        [HttpGet]
+        [HttpPost]
         public void AddTeamMember(string name)
         {
-            teamInfo.TeamMembers.Add(name);
+            this.teamInfo.TeamMembers.Add(name);
         }
 
         [HttpGet]
-        public int GetCount() 
+        public int GetCount()
         {
-            return teamInfo.TeamMembers.Count;        
+            return this.teamInfo.TeamMembers.Count;
         }
 
         public IActionResult Index()
         {
-            return View(teamInfo);
+            return this.View(this.teamInfo);
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return this.View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
     }
 }
