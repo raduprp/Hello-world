@@ -6,10 +6,29 @@ $(document).ready(function () {
 
 
         
-        $("#teamList").append(`<li>${newcomerName}</li>`);
+       
+
+        $.ajax({
+            method: "POST",
+            url: "/Home/AddTeamMember",
+            
+            data: {
+                "name": newcomerName
+            
+
+            },
+            success: function (result) => {
+                $("#teamList").append(`<li>${newcomerName}</li>`),
+
+
+                $("#nameField").val(""),
+            }
+
+        })
 
 
 
-        $("#nameField").val("");
+
+       
     })
 });
