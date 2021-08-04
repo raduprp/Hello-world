@@ -17,11 +17,11 @@ $(document).ready(function () {
             
 
             },
-            success: function (result) => {
-                $("#teamList").append(`<li>${newcomerName}</li>`),
+            success: function (result){
+                $("#teamList").append(`<li>${newcomerName}</li>`);
 
 
-                $("#nameField").val(""),
+                    $("#nameField").val("");
             }
 
         })

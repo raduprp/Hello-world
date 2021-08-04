@@ -2,46 +2,40 @@
 // Copyright (c) Principal 33 Solutions. All rights reserved.
 // </copyright>
 
-using System.Collections.Generic;
 using System.Diagnostics;
 using HelloWorldWeb.Models;
+using HelloWorldWebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace HelloWorldWeb.Controllers
+namespace HelloWorldWebApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly TeamInfo teamInfo;
+        private readonly ITeamService teamService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ITeamService teamService)
         {
             this.logger = logger;
-            this.teamInfo = new TeamInfo
-            {
-            Name = "Team1",
-            TeamMembers = new List<string>(),
-            };
-
-            this.teamInfo.TeamMembers.AddRange(new string[] { "Fineas", "Emma", "Patrick", "Tudor", "Radu P." });
-    }
+            this.teamService = teamService;
+        }
 
         [HttpPost]
         public void AddTeamMember(string name)
         {
-            this.teamInfo.TeamMembers.Add(name);
+            teamService.AddTeamMember(name);
         }
 
         [HttpGet]
         public int GetCount()
         {
-            return this.teamInfo.TeamMembers.Count;
+            return teamService.GetTeamInfo().TeamMembers.Count;
         }
 
         public IActionResult Index()
         {
-            return this.View(this.teamInfo);
+            return this.View(teamService.GetTeamInfo());
         }
 
         public IActionResult Privacy()
