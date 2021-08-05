@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    $("#clearButton").click(function () {
+        $("#nameField").val("")
+        $('#createButton').prop('disabled', true);
+    });
+
+    
+
+
     $('#nameField').on('input change', function () {
         if ($(this).val() != '') {
             $('#createButton').prop('disabled', false);
@@ -7,6 +15,8 @@ $(document).ready(function () {
             $('#createButton').prop('disabled', true);
         }
     });
+
+    
 
 
 
