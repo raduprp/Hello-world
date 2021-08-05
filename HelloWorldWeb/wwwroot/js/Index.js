@@ -1,5 +1,15 @@
 $(document).ready(function () {
-    
+
+    $('#nameField').on('input change', function () {
+        if ($(this).val() != '') {
+            $('#createButton').prop('disabled', false);
+        } else {
+            $('#createButton').prop('disabled', true);
+        }
+    });
+
+
+
     $("#createButton").click(function () {
         var newcomerName = $("#nameField").val();
 
@@ -18,9 +28,20 @@ $(document).ready(function () {
 
             },
             success: function (result){
-                $("#teamList").append(`<li>${newcomerName}</li>`);
+                $("#teamList").append(
+                `<li class="member">
+                    <span class="name">${newcomerName}</span>
+                    <span class="delete fa fa-remove"></span>
+                    <span class="edit fa fa-pencil"></span>
+                </li>`
 
 
+
+
+
+                );
+
+                    $('#createButton').prop('disabled', true);
                     $("#nameField").val("");
             }
 
@@ -31,4 +52,7 @@ $(document).ready(function () {
 
        
     })
+
+
+
 });
