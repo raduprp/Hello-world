@@ -1,41 +1,49 @@
-﻿// <copyright file="HomeController.cs" company="Principal 33 Solutions">
-// Copyright (c) Principal 33 Solutions. All rights reserved.
+﻿// <copyright file="HomeController.cs" company="Principal33">
+// Copyright (c) Principal33. All rights reserved.
 // </copyright>
 
 using System.Diagnostics;
 using HelloWorldWeb.Models;
-using HelloWorldWebApp.Services;
+using HelloWorldWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace HelloWorldWebApp.Controllers
+namespace HelloWorldWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
+#pragma warning disable IDE0052 // Remove unread private members
+        private readonly ILogger<HomeController> _logger;
+#pragma warning restore IDE0052 // Remove unread private members
         private readonly ITeamService teamService;
 
         public HomeController(ILogger<HomeController> logger, ITeamService teamService)
         {
-            this.logger = logger;
+            this._logger = logger;
             this.teamService = teamService;
         }
 
         [HttpPost]
-        public void AddTeamMember(string name)
+        public void AddTeamMember(string teamMember)
         {
-            teamService.AddTeamMember(name);
+            this.teamService.AddTeamMember(teamMember);
+        }
+
+        [HttpDelete]
+        public void DeleteTeamMember(int index)
+        {
+            this.teamService.DeleteTeamMember(index);
         }
 
         [HttpGet]
         public int GetCount()
         {
-            return teamService.GetTeamInfo().TeamMembers.Count;
+            return this.teamService.GetTeamInfo().TeamMembers.Count;
         }
 
         public IActionResult Index()
         {
-            return this.View(teamService.GetTeamInfo());
+            return this.View(this.teamService.GetTeamInfo());
         }
 
         public IActionResult Privacy()

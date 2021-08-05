@@ -3,7 +3,7 @@
 // </copyright>
 
 
-using HelloWorldWebApp.Services;
+using HelloWorldWeb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

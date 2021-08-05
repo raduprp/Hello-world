@@ -1,7 +1,11 @@
-﻿using HelloWorldWeb.Models;
-using System.Collections.Generic;
+﻿// <copyright file="TeamService.cs" company="Principal33">
+// Copyright (c) Principal33. All rights reserved.
+// </copyright>
 
-namespace HelloWorldWebApp.Services
+using System.Collections.Generic;
+using HelloWorldWeb.Models;
+
+namespace HelloWorldWeb.Services
 {
     public class TeamService : ITeamService
     {
@@ -11,13 +15,13 @@ namespace HelloWorldWebApp.Services
         {
             this.teamInfo = new TeamInfo
             {
-                Name = "Team 3",
+                Name = "Team 1",
                 TeamMembers = new List<string>(new string[]
                {
-                    "Patrick",
                     "Fineas",
+                    "Patrick",
                     "Emma",
-                    "Tudor",
+                    "Sorina",
                     "Radu P.",
                     
                }),
@@ -26,12 +30,16 @@ namespace HelloWorldWebApp.Services
 
         public TeamInfo GetTeamInfo()
         {
-            return teamInfo;
+            return this.teamInfo;
         }
 
         public void AddTeamMember(string name)
         {
-            teamInfo.TeamMembers.Add(name);
+            this.teamInfo.TeamMembers.Add(name);
+        }
+        public void DeleteTeamMember(int index)
+        {
+            this.teamInfo.TeamMembers.RemoveAt(index);
         }
     }
 }
