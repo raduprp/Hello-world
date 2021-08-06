@@ -1,5 +1,5 @@
-﻿// <copyright file="TeamInfo.cs" company="Principal 33 Solutions">
-// Copyright (c) Principal 33 Solutions. All rights reserved.
+﻿// <copyright file="TeamInfo.cs" company="Principal33 Solutions SRL">
+// Copyright (c) Principal33 Solutions SRL. All rights reserved.
 // </copyright>
 
 using System.Collections.Generic;
@@ -10,6 +10,6 @@ namespace HelloWorldWeb.Models
     {
         public string Name { get; set; }
 
-        public List<string> TeamMembers { get; set; }
+        public List<TeamMember> TeamMembers { get; set; }
     }
 }
