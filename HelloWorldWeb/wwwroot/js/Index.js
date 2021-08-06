@@ -57,22 +57,47 @@ $(document).ready(function () {
 
     });
 
+    $("#editClassmate").on("click", "#submit", function () {
+        console.log('submit changes to server');
+        var targetMemberTag = $(this).closest('li');
+        var id = $('#editClassmate').attr("member-id");
+        var name = $('#classmateName').val();
+        $.ajax({
+            url: "/Home/EditTeamMember",
+            method: "POST",
+            data: {
+                "id": id,
+                "name": name
+            },
+            success: function (result) {
+                console.log('succesful renamed ${id}');
+                location.reload();
+            }
+        })
 
 
+
+        $("#editClassmate").on("click", "#cancel", function () {
+            console.log('cancel changes');
+        })
+
+
+
+    });
 });
 
-function deleteMember(index) {
+    function deleteMember(index) {
 
-    $.ajax({
-        url: "/Home/DeleteTeamMember",
-        method: "DELETE",
-        data: {
-            "index": index
-        },
-        success: function (result) {
-            console.log("deleete:" + index);
-            location.reload();
-        }
-    })
-};
+        $.ajax({
+            url: "/Home/DeleteTeamMember",
+            method: "DELETE",
+            data: {
+                "index": index
+            },
+            success: function (result) {
+                console.log("deleete:" + index);
+                location.reload();
+            }
+        })
+    };
 

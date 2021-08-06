@@ -35,15 +35,7 @@ namespace HelloWorldWeb.Services
 
         public TeamMember GetTeamMemberById(int id)
         {
-            // foreach (TeamMember member in this.teamInfo.TeamMembers)
-            // {
-            //    if (member.Id == id)
-            //    {
-            //        return member;
-            //    }
 
-            // }
-            // return null;
             Console.WriteLine(id);
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
@@ -55,9 +47,23 @@ namespace HelloWorldWeb.Services
             return member.Id;
         }
 
+
+
         public void DeleteTeamMember(int index)
         {
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(index));
         }
+
+
+        
+
+        public void EditTeamMember(int id, string name)
+        {
+            this.GetTeamMemberById(id).Name = name;
+        }
+
+
+
+
     }
 }
