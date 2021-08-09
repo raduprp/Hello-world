@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     $("#editClassmate").on("click", "#submit", function () {
         console.log('submit changes to server');
-        var targetMemberTag = $(this).closest('li');
+        
         var id = $('#editClassmate').attr("member-id");
         var name = $('#classmateName').val();
         $.ajax({
