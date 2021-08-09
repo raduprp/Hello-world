@@ -1,7 +1,4 @@
 {
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=DESKTOP-1JUTT8T\\SQLEXPRESS;Database=HelloWorldDB;Trusted_Connection=True;MultipleActiveResultSets=true"
-  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",
