@@ -16,11 +16,12 @@ namespace HelloWorldWeb.Controllers
 
         // private readonly TeamInfo teamInfo;
         private readonly ITeamService teamService;
-
-        public HomeController(ILogger<HomeController> logger, ITeamService teamService)
+        private readonly ITimeService timeService;
+        public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService)
         {
             this.logger = logger;
             this.teamService = teamService;
+            this.timeService = timeService;
         }
 
         [HttpGet]
@@ -32,7 +33,7 @@ namespace HelloWorldWeb.Controllers
         [HttpPost]
         public int AddTeamMember(string name)
         {
-            return this.teamService.AddTeamMember(name);
+            return this.teamService.AddTeamMember(name, timeService);
         }
 
         [HttpDelete]

@@ -2,6 +2,7 @@
 // Copyright (c) Principal33 Solutions SRL. All rights reserved.
 // </copyright>
 
+using HelloWorldWeb.Services;
 using System;
 
 namespace HelloWorldWeb.Models
@@ -9,9 +10,10 @@ namespace HelloWorldWeb.Models
     public class TeamMember
     {
         private static int idCount = 0;
-
-        public TeamMember(string name)
+        private readonly ITimeService timeService;
+        public TeamMember(string name, ITimeService timeService)
         {
+            this.timeService = timeService;
             this.Id = idCount;
             this.Name = name;
             idCount++;
@@ -25,7 +27,7 @@ namespace HelloWorldWeb.Models
 
         public int getAge()
         {
-            var age = DateTime.Now.Subtract(BirthDate).Days;
+            var age = this.timeService.GetNow().Subtract(BirthDate).Days;
             age = age / 365;
 
             return age;

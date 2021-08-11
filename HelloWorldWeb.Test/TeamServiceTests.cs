@@ -1,5 +1,6 @@
 using HelloWorldWeb.Models;
 using HelloWorldWeb.Services;
+using HelloWorldWebMVC.Services;
 using System;
 using Xunit;
 
@@ -7,16 +8,19 @@ namespace HelloWorldWeb.Test
 {
     public class TeamServiceTests
     {
+        private ITimeService timeService;
+
         [Fact]
         public void AddTeamMemberToTheTeam()
         {
             // Assume
 
             ITeamService teamService = new TeamService();
+            ITimeService timeService = new TimeService();
 
             // Act
 
-            teamService.AddTeamMember("George");
+            teamService.AddTeamMember("George", timeService);
 
             // Assert
             Assert.Equal(6, teamService.GetTeamInfo().TeamMembers.Count);
@@ -59,42 +63,14 @@ namespace HelloWorldWeb.Test
             var newMemberName = "Boris";
             //Act
             teamService.DeleteTeamMember(memberToBeDeleted.Id);
-            var id = teamService.AddTeamMember(newMemberName);
+            var id = teamService.AddTeamMember(newMemberName, timeService);
             teamService.DeleteTeamMember(id);
             //Assert
             var member = teamService.GetTeamInfo().TeamMembers.Find(element => element.Name == "Boris");
             Assert.Null(member);
         }
 
-        [Fact]
-        public void TestGetAgeEqual()
-        {
-            // Assume
-            TeamMember teamMember = new TeamMember("Ioan");
-            teamMember.BirthDate = new DateTime(2000, 01, 01);
-            int expectedAge = 21;
-
-            // Act
-            int computedAge = teamMember.getAge();
-
-            // Assert
-            Assert.Equal(expectedAge, computedAge);
-        }
-
-        [Fact]
-        public void TestGetAgeNotEqual()
-        {
-            // Assume
-            TeamMember teamMember = new TeamMember("Ioan");
-            teamMember.BirthDate = new DateTime(2000, 01, 01);
-            int expectedAge = 1;
-
-            // Act
-            int computedAge = teamMember.getAge();
-
-            // Assert
-            Assert.NotEqual(expectedAge, computedAge);
-        }
+       
 
 
     }
