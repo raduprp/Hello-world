@@ -3,6 +3,7 @@
 // </copyright>
 
 using HelloWorldWeb.Services;
+using HelloWorldWebMVC.Services;
 using System;
 
 namespace HelloWorldWeb.Models
