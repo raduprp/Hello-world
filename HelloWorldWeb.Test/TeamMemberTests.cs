@@ -1,5 +1,6 @@
 ﻿using HelloWorldWeb.Models;
 using HelloWorldWeb.Services;
+using Moq;
 using System;
 using Xunit;
 
@@ -12,7 +13,9 @@ namespace HelloWorldWeb.Test
 
         public TeamMemberTests()
         {
-            timeService = new FakeTimeService();
+            var mock = new Mock<ITimeService>();
+            mock.Setup(_=>_.GetNow()).Returns(new DateTime(2021,08,11));
+            timeService = mock.Object;
         }
         [Fact]
         public void GettingAge()
@@ -32,11 +35,5 @@ namespace HelloWorldWeb.Test
 
     }
 
-    internal class FakeTimeService : ITimeService
-    {
-        public DateTime GetNow()
-        {
-            return new DateTime(2021, 08, 11);
-        }
-    }
+   
 }
