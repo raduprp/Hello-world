@@ -41,13 +41,15 @@ namespace HelloWorldWeb.Controllers
 
             List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
 
-            var jsonArray = json["daily"];
+            var jsonArray = json["daily"].Take(7);
 
             foreach (var item in jsonArray)
             {
                 //TODO: Convert item to DailyWeatherRecord
 
                 DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 08, 12), 22.0F, WeatherType.Mild);
+                long unixDateTime = item.Value<long>("dt");
+                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date; 
                 result.Add(dailyWeatherRecord);
 
             }
