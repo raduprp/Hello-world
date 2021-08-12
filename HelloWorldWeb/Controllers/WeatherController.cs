@@ -49,7 +49,14 @@ namespace HelloWorldWeb.Controllers
 
                 DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 08, 12), 22.0F, WeatherType.Mild);
                 long unixDateTime = item.Value<long>("dt");
-                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date; 
+                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
+
+
+                dailyWeatherRecord.Temperature = item.SelectToken("temp").Value<float>("day");
+
+                string weather = item.SelectToken("weather")[0].Value<string>("description");
+                dailyWeatherRecord.Type = Convert(weather);
+
                 result.Add(dailyWeatherRecord);
 
             }
@@ -57,6 +64,21 @@ namespace HelloWorldWeb.Controllers
             return result;
 
             
+        }
+
+        private WeatherType Convert(string weather)
+        {
+            switch (weather)
+            {
+                case"few clouds":
+                    return WeatherType.FewClouds;
+                case"light rain":
+                    return WeatherType.LightRain;
+                case "broken clouds":
+                    return WeatherType.BrokenClouds;
+                default:
+                    throw new Exception($"Unknown weather type {weather}.");
+            }
         }
 
         // GET api/<WeatherController>/5
