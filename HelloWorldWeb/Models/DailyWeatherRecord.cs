@@ -21,6 +21,11 @@ namespace HelloWorldWeb.Models
 
         public DateTime Day { get; set; }
 
+        public static float kelvinToCelsius(float kelvinVal)
+        {
+            return kelvinVal - 273.15f;
+        }
+
 
 
     }
