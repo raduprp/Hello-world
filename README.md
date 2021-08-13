@@ -1,2 +1,9 @@
 # My first line
-Sample text here
+## How to deploy to Heroku
+1.Login to Heroku 
+
+```
+heroku login
+
+```
+
