@@ -19,6 +19,20 @@ namespace HelloWorldWeb.Controllers
         private readonly string longitude = "23.5800";
         private readonly string apiKey = "f0d03bf2ed843808710bf00ed7a9ad6f";
 
+        public WeatherController(IWeatherControllerSettings conf)
+        {
+            longitude = conf.Longitude;
+            latitude = conf.Latitude;
+            apiKey = conf.ApiKey;
+        }
+
+        public WeatherController()
+        {
+        }
+
+
+
+
         // GET: api/<WeatherController>
         [HttpGet]
         public IEnumerable<DailyWeatherRecord> Get()
