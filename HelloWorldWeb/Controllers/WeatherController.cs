@@ -26,9 +26,9 @@ namespace HelloWorldWeb.Controllers
             apiKey = conf.ApiKey;
         }
 
-        public WeatherController()
-        {
-        }
+        
+
+
 
 
 
@@ -53,7 +53,11 @@ namespace HelloWorldWeb.Controllers
         {
             var json = JObject.Parse(content);
 
-
+            if (json["daily"] == null)
+            {
+                throw new Exception("ApiKey is not valid.");
+                        
+            }
             var jsonArray = json["daily"].Take(7);
             return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
 

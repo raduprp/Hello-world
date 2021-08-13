@@ -2,10 +2,10 @@
 {
     public interface IWeatherControllerSettings
     {
-        string Latitude { get; }
+        string Latitude { set; get; }
 
-        string Longitude { get; }
+        string Longitude { set; get; }
 
-        string ApiKey { get; }
+        string ApiKey { set; get; }
     }
 }
