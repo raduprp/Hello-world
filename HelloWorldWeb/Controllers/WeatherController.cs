@@ -39,31 +39,26 @@ namespace HelloWorldWeb.Controllers
         {
             var json = JObject.Parse(content);
 
-            List<DailyWeatherRecord> result = new List<DailyWeatherRecord>();
 
             var jsonArray = json["daily"].Take(7);
+            return jsonArray.Select(CreateDailyWeatherRecordFromJToken);
 
-            foreach (var item in jsonArray)
-            {
-                //TODO: Convert item to DailyWeatherRecord
 
-                DailyWeatherRecord dailyWeatherRecord = new DailyWeatherRecord(new DateTime(2021, 08, 12), 22.0F, WeatherType.Mild);
-                long unixDateTime = item.Value<long>("dt");
-                dailyWeatherRecord.Day = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
+        }
 
-                var tempField = item.SelectToken("temp");
-                dailyWeatherRecord.Temperature = DailyWeatherRecord.kelvinToCelsius(tempField.Value<float>("day"));
+        private DailyWeatherRecord CreateDailyWeatherRecordFromJToken(JToken item)
+        {
+            // DateTime.Date to dismiss hour,minutes and seconds
+            long unixDateTime = item.Value<long>("dt");
+            DateTime forecastDay = DateTimeOffset.FromUnixTimeSeconds(unixDateTime).DateTime.Date;
 
-                var weatherTypeString = item.SelectToken("weather")[0].Value<string>("description");
-                dailyWeatherRecord.Type = ConvertToWeatherType(weatherTypeString);
+            var tempField = item.SelectToken("temp");
+            float forecastTemperature = DailyWeatherRecord.KelvinToCelsius(tempField.Value<float>("day"));
 
-                result.Add(dailyWeatherRecord);
+            var weatherTypeString = item.SelectToken("weather")[0].Value<string>("description");
+            WeatherType forecastType = ConvertToWeatherType(weatherTypeString);
 
-            }
-
-            return result;
-
-            
+            return new DailyWeatherRecord(forecastDay, forecastTemperature, forecastType);
         }
 
         private WeatherType ConvertToWeatherType(string weatherTypeString)

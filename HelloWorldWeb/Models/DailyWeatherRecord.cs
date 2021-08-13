@@ -7,6 +7,7 @@ namespace HelloWorldWeb.Models
 {
     public class DailyWeatherRecord
     {
+        public const float KELVIN_CONST = 273.15f;
       
         public DailyWeatherRecord(DateTime day, double temperature, WeatherType type)
         {
@@ -21,9 +22,9 @@ namespace HelloWorldWeb.Models
 
         public DateTime Day { get; set; }
 
-        public static float kelvinToCelsius(float kelvinVal)
+        public static float KelvinToCelsius(float kelvinVal)
         {
-            return kelvinVal - 273.15f;
+            return kelvinVal - KELVIN_CONST;
         }
 
 
