@@ -39,7 +39,7 @@ namespace HelloWorldWeb.Test
 
         private string LoadJsonFromResource()
         {
-            var resourceName = "HelloWorldWeb.Tests.TestData.ContentWeatherAPI.json";
+            var resourceName = "HelloWorldWeb.Test.TestData.ContentWeatherApi.json";
             var assembly = this.GetType().Assembly;
             var resourceStream = assembly.GetManifestResourceStream(resourceName);
             using (var tr = new StreamReader(resourceStream))

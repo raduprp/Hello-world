@@ -7,11 +7,11 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="TestData\ContentWeatherAPI.json" />
+		<None Remove="TestData\ContentWeatherApi.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="TestData\ContentWeatherAPI.json" />
+		<EmbeddedResource Include="TestData\ContentWeatherApi.json" />
 	</ItemGroup>
 
   <ItemGroup>
