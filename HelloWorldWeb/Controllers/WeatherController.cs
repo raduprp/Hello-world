@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 namespace HelloWorldWeb.Controllers
 {
     /// <summary>
-    /// fetch data from weather API.
+    /// fetch data from weather API:
+    /// <see href="https://openweathermap.org/api"/>
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
