@@ -32,7 +32,10 @@ namespace HelloWorldWeb.Services
 
         public void EditTeamMember(int id, string name)
         {
-            throw new NotImplementedException();
+            var teamMember = this._context.TeamMembers.Find(id);
+            teamMember.Name = name;
+            this._context.Update(teamMember);
+            this._context.SaveChanges();
         }
 
         public TeamInfo GetTeamInfo()
