@@ -14,12 +14,11 @@ namespace HelloWorldWeb.Services
         {
             _context = context;     
         }
-        public int AddTeamMember(string name)
+        public int AddTeamMember(TeamMember member)
         {
-            TeamMember teamMember = new TeamMember() { Name = name};
-            _context.Add(teamMember);
+            _context.Add(member);
             _context.SaveChanges();
-            return teamMember.Id;
+            return member.Id;
         }
 
         public void DeleteTeamMember(int id)

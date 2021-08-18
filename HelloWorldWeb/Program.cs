@@ -1,9 +1,6 @@
-// <copyright file="Program.cs" company="Principal 33 Solutions">
-// Copyright (c) Principal 33 Solutions. All rights reserved.
-// </copyright>
-
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace HelloWorldWeb
 {
@@ -15,10 +12,13 @@ namespace HelloWorldWeb
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            var port = Environment.GetEnvironmentVariable("PORT");
+
+            webBuilder.UseStartup<Startup>()
+           .UseUrls("http://*:" + port);
+        });
     }
 }
