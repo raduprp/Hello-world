@@ -18,8 +18,12 @@ namespace HelloWorldWeb.Test
 
             //Act
 
+            string aspnetConnectionString = Startup.ConvertHerokuStringToAspnetString(herokuConnectionString);
+
 
             //Assert
+            Assert.Equal("Host=ec2-34-251-245-108.eu-west-1.compute.amazonaws.com;Port=5432;Database=d9vulauagonmn6;User Id=lzbgxpkfvfnhwb;Password=ffbf205079506209b9d4c6eadc303b84c88bd557c531ce531312ee4fdf517fc1;Pooling=true;SSL Mode=Require;TrustServerCertificate=True;", aspnetConnectionString);
+
         }
     }
 }

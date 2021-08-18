@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HelloWorldWeb.Data;
+using System;
 
 namespace HelloWorldWeb
 {
@@ -21,6 +22,8 @@ namespace HelloWorldWeb
         {
             this.Configuration = configuration;
         }
+
+      
 
         public IConfiguration Configuration { get; }
 
@@ -69,6 +72,21 @@ namespace HelloWorldWeb
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+           
+        }
+        public static string ConvertHerokuStringToAspnetString(string herokuConnectionString)
+        {
+            var databaseUri = new Uri(herokuConnectionString);
+            string databaseUriArray = databaseUri.UserInfo;
+            
+            var databaseUriUsername = databaseUriArray.Split(':')[0];
+            var databaseUriPassword = databaseUriArray.Split(':')[1];
+            var databaseName = databaseUri.LocalPath.TrimStart('/'); 
+            return $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseName};User Id={databaseUriUsername};Password={databaseUriPassword};Pooling=true;SSL Mode=Require;TrustServerCertificate=True;";
+
+
+
         }
     }
 }
