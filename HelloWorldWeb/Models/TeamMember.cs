@@ -3,9 +3,11 @@
 // </copyright>
 
 using System;
+using System.Diagnostics;
 
 namespace HelloWorldWeb.Models
 {
+    [DebuggerDisplay("{Name}[{Id}]")]
     public class TeamMember
     {
         
@@ -15,5 +17,8 @@ namespace HelloWorldWeb.Models
         public string Name { get; set; }
 
         public DateTime Birthdate { get; set; }
+
     }
+
+
 }
