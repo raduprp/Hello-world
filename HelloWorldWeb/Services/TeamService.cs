@@ -56,7 +56,7 @@ namespace HelloWorldWeb.Services
         {
             TeamMember member = new TeamMember(name, timeService);
             this.teamInfo.TeamMembers.Add(member);
-            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name);
+            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
             return member.Id;
 
         }
@@ -73,7 +73,8 @@ namespace HelloWorldWeb.Services
 
         public void EditTeamMember(int id, string name)
         {
-            this.GetTeamMemberById(id).Name = name;
+            TeamMember member = GetTeamMemberById(id);
+            member.Name = name;
         }
 
 
