@@ -4,6 +4,7 @@ using HelloWorldWebMVC.Services;
 using Microsoft.AspNetCore.SignalR;
 using Moq;
 using System;
+using System.Threading;
 using Xunit;
 
 namespace HelloWorldWeb.Test
@@ -11,7 +12,7 @@ namespace HelloWorldWeb.Test
     public class TeamServiceTests
     {
         private ITimeService timeService;
-        private Mock<IHubContext<MessageHub>> messageHub = null;
+        private Mock<IHubContext<MessageHub>> messageHubMock = null;
 
         [Fact]
         public void AddTeamMemberToTheTeam()
@@ -79,21 +80,40 @@ namespace HelloWorldWeb.Test
             Mock<IClientProxy> hubAllClients = new Mock<IClientProxy>();
             Mock<IHubClients> hubClients = new Mock<IHubClients>();
             hubClients.Setup(_ => _.All).Returns(hubAllClients.Object);
-            messageHub = new Mock<IHubContext<MessageHub>>();
+            messageHubMock = new Mock<IHubContext<MessageHub>>();
 
-            messageHub.SetupGet(_ => _.Clients).Returns(hubClients.Object);
+            messageHubMock.SetupGet(_ => _.Clients).Returns(hubClients.Object);
         }
 
         private IHubContext<MessageHub> GetMockedMessageHub()
         {
-            if (messageHub == null)
+            if (messageHubMock == null)
             {
                 InitializeMessageHubMock();
             }
 
-            return messageHub.Object;
+            return messageHubMock.Object;
         }
 
+        [Fact]
+        public void CheckLine60()
+        {
+            // Assume
+            InitializeMessageHubMock();
+            var messageHub = messageHubMock.Object;
+
+            // Act
+            messageHub.Clients.All.SendAsync("NewTeamMemberAdded", "Tudor", 2);
+
+            // Assert
+            //It.IsAny<string>()
+            hubAllClientsMock.Verify(hubAllClients => hubAllClients.SendAsync("NewTeamMemberAdded", "Tudor", 2, It.IsAny<CancellationToken>()), Times.Once(), "I expect SendAsync to be called once.");
+            //Mock.Get(hubAllClientsMock).Verify(_ => _.SendAsync("NewTeamMemberAdded", "Tudor", 2), Times.Once());
+
+        }
+
+        private Mock<IHubClients> hubClientsMock;
+        private Mock<IClientProxy> hubAllClientsMock;
 
 
 
