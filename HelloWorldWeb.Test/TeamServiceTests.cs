@@ -107,7 +107,7 @@ namespace HelloWorldWeb.Test
 
             // Assert
             //It.IsAny<string>()
-            hubAllClientsMock.Verify(hubAllClients => hubAllClients.SendAsync("NewTeamMemberAdded", "Tudor", 2, It.IsAny<CancellationToken>()), Times.Once(), "I expect SendAsync to be called once.");
+            hubAllClientsMock.Setup(_ => _.SendAsync("NewTeamMemberAdded", "Tudor", 2, It.IsAny<CancellationToken>()));
             //Mock.Get(hubAllClientsMock).Verify(_ => _.SendAsync("NewTeamMemberAdded", "Tudor", 2), Times.Once());
 
         }
