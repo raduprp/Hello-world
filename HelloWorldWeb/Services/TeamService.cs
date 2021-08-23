@@ -75,8 +75,8 @@ namespace HelloWorldWeb.Services
 
         public void EditTeamMember(int id, string name)
         {
-            TeamMember member = GetTeamMemberById(id);
-            member.Name = name;
+            this.GetTeamMemberById(id).Name = name;
+            this.broadcastService.TeamMemberEdit(id, name);
         }
 
 

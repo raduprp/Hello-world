@@ -9,6 +9,8 @@ $(document).ready(function () {
 
     connection.on("NewTeamMemberAdded", createNewLine);
     connection.on("TeamMemberDeleted", deleteMember);
+    connection.on("TeamMemberEdit", editMember);
+
 
     connection.start().then(function () {
         alert("signalr connected");
@@ -53,10 +55,10 @@ $(document).ready(function () {
 
     $("#editClassmate").on("click", "#submit", function () {
         var targetMemberTag = $(this).closest('li');
-        var id = $('#editClassmate').attr("data-member-id");
+        var id = $('#editClassmate').attr("member-id");
         var name = $('#classmateName').val();
         $.ajax({
-            url: "/Home/EditTeamMemberName",
+            url: "/Home/EditTeamMember",
             method: "POST",
             data: {
                 "id": id,
@@ -94,7 +96,7 @@ function setDelete() {
 }
 
 function setEdit() {
-    $("#teamList").on("click", ".pencil", function () {
+    $("#teamList").on("click", ".edit", function () {
         var targetMemberTag = $(this).closest('li');
         var id = targetMemberTag.attr('data-member-id');
         var currentName = targetMemberTag.find(".memberName").text();
@@ -107,8 +109,8 @@ function setEdit() {
 var createNewLine = (name, id) => {
     $("#teamList").append(`<li class="member" data-member-id="${id}">
                         <span class="memberName">${name}</span>
-                        <span class="delete fa fa-remove" id="deleteMember"></span>
-                        <span class="pencil fa fa-pencil"></span>
+                        <span class="delete fa fa-remove"></span>
+                        <span class="edit fa fa-pencil"></span>
                              </li>`);
     setDelete();
     setEdit();
@@ -116,4 +118,8 @@ var createNewLine = (name, id) => {
 
 var deleteMember = (id) => {
     $(`li[data-member-id=${id}]`).remove();
+}
+
+var editMember = (name, id) => {
+    $(`li[data-member-id=${id}]`).find(".memberName").text(name);
 }
