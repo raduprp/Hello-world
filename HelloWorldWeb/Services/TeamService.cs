@@ -67,6 +67,7 @@ namespace HelloWorldWeb.Services
         public void DeleteTeamMember(int index)
         {
             this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(index));
+            this.broadcastService.TeamMemberDeleted(index);
         }
 
 
