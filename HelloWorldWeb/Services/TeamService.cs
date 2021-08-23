@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HelloWorldWeb.Models;
 using HelloWorldWebMVC.Services;
+using Microsoft.AspNetCore.SignalR;
 
 namespace HelloWorldWeb.Services
 {
@@ -16,8 +17,13 @@ namespace HelloWorldWeb.Services
 
         private ITimeService timeService;
 
-        public TeamService()
+        private readonly IHubContext<MessageHub> messageHub;
+
+        public TeamService(IHubContext<MessageHub> messageHubContext)
         {
+            this.messageHub = messageHubContext;
+
+
             this.teamInfo = new TeamInfo
             {
                 Name = "Team 1",
@@ -29,6 +35,9 @@ namespace HelloWorldWeb.Services
             this.AddTeamMember("Patrick",(TimeService)timeService);
             this.AddTeamMember("Tudor",(TimeService)timeService);
             this.AddTeamMember("Radu",(TimeService)timeService);
+
+            this.messageHub = messageHubContext;
+
         }
 
         public TeamInfo GetTeamInfo()
@@ -47,7 +56,9 @@ namespace HelloWorldWeb.Services
         {
             TeamMember member = new TeamMember(name, timeService);
             this.teamInfo.TeamMembers.Add(member);
+            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name);
             return member.Id;
+
         }
 
 
