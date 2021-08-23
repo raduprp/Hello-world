@@ -38,9 +38,9 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpDelete]
-        public void DeleteTeamMember(int index)
+        public void DeleteTeamMember(int id)
         {
-            this.teamService.DeleteTeamMember(index);
+            this.teamService.DeleteTeamMember(id);
         }
 
         [HttpPost]

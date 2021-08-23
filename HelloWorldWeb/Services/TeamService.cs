@@ -64,10 +64,10 @@ namespace HelloWorldWeb.Services
 
 
 
-        public void DeleteTeamMember(int index)
+        public void DeleteTeamMember(int id)
         {
-            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(index));
-            this.broadcastService.TeamMemberDeleted(index);
+            this.teamInfo.TeamMembers.Remove(this.GetTeamMemberById(id));
+            this.broadcastService.TeamMemberDeleted(id);
         }
 
 

@@ -76,7 +76,7 @@ $(document).ready(function () {
 });
 
 function setDelete() {
-    $("#list").on("click", ".delete", function () {
+    $("#teamList").on("click", ".delete", function () {
     
         var id = $(this).parent().attr("data-member-id");
         $.ajax({
@@ -94,7 +94,7 @@ function setDelete() {
 }
 
 function setEdit() {
-    $("#list").on("click", ".pencil", function () {
+    $("#teamList").on("click", ".pencil", function () {
         var targetMemberTag = $(this).closest('li');
         var id = targetMemberTag.attr('data-member-id');
         var currentName = targetMemberTag.find(".memberName").text();
@@ -105,7 +105,7 @@ function setEdit() {
 }
 
 var createNewLine = (name, id) => {
-    $("#list").append(`<li class="member" data-member-id="${id}">
+    $("#teamList").append(`<li class="member" data-member-id="${id}">
                         <span class="memberName">${name}</span>
                         <span class="delete fa fa-remove" id="deleteMember"></span>
                         <span class="pencil fa fa-pencil"></span>
