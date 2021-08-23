@@ -4,20 +4,22 @@ using Moq;
 using System;
 using Xunit;
 
-namespace HelloWorldWeb.Test
+namespace HelloWorldWeb.Tests
 {
     public class TeamMemberTests
     {
-        
-
         private Mock<ITimeService> timeMock;
-       
+        public TeamMemberTests()
+        {
+            InitializeTimeServiceMock();
+
+        }
 
         private void InitializeTimeServiceMock()
         {
             timeMock = new Mock<ITimeService>();
-            timeMock.Setup(_ => _.GetNow()).Returns(new DateTime(2021, 08, 11));
-           
+            timeMock.Setup(_ => _.GetNow()).Returns(new DateTime(2021, 8, 11));
+
         }
 
         [Fact]
@@ -25,22 +27,19 @@ namespace HelloWorldWeb.Test
         {
             //Assume
             InitializeTimeServiceMock();
-
             var timeService = timeMock.Object;
-            var newTeamMember = new TeamMember("Radu", timeService);
-            newTeamMember.BirthDate = new DateTime(1998, 12, 10);
-            
+
+            var newTeamMember = new TeamMember("Patrick", timeService);
+            newTeamMember.BirthDate = new DateTime(1997, 07, 27);
+
             //Act
             int age = newTeamMember.getAge();
 
             //Assert
-            timeMock.Verify(library => library.GetNow(), Times.AtMostOnce());
-
-            Assert.Equal(22, age);
+            timeMock.Verify(_ => _.GetNow(), Times.AtMostOnce());
+            Assert.Equal(24, age);
 
         }
 
     }
-
-   
 }
