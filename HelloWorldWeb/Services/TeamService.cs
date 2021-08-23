@@ -15,29 +15,30 @@ namespace HelloWorldWeb.Services
     {
         private readonly TeamInfo teamInfo;
 
+        private readonly IBroadcastService broadcastService;
+
         private ITimeService timeService;
 
-        private readonly IHubContext<MessageHub> messageHub;
 
-        public TeamService(IHubContext<MessageHub> messageHubContext)
+
+
+
+        public TeamService(IBroadcastService broadcastService)
         {
-            this.messageHub = messageHubContext;
-
-
             this.teamInfo = new TeamInfo
             {
-                Name = "Team 1",
+                Name = "Team1",
                 TeamMembers = new List<TeamMember>(),
             };
+            teamInfo.TeamMembers.Add(new TeamMember("Sorina", timeService));
+            teamInfo.TeamMembers.Add(new TeamMember("Ema", timeService));
+            teamInfo.TeamMembers.Add(new TeamMember("Radu", timeService));
+            teamInfo.TeamMembers.Add(new TeamMember("Patrick", timeService));
+            teamInfo.TeamMembers.Add(new TeamMember("Tudor", timeService));
+            teamInfo.TeamMembers.Add(new TeamMember("Fineas", timeService));
 
-            this.AddTeamMember("Sorina",(TimeService)timeService);
-            this.AddTeamMember("Ema",(TimeService)timeService);
-            this.AddTeamMember("Patrick",(TimeService)timeService);
-            this.AddTeamMember("Tudor",(TimeService)timeService);
-            this.AddTeamMember("Radu",(TimeService)timeService);
-
-            this.messageHub = messageHubContext;
-
+            
+            this.broadcastService = broadcastService;
         }
 
         public TeamInfo GetTeamInfo()
@@ -52,13 +53,13 @@ namespace HelloWorldWeb.Services
             return this.teamInfo.TeamMembers.Find(x => x.Id == id);
         }
 
-        public int AddTeamMember(string name, ITimeService timeService)
+        public int AddTeamMember(TeamMember newTeamMember)
         {
-            TeamMember member = new TeamMember(name, timeService);
-            this.teamInfo.TeamMembers.Add(member);
-            this.messageHub.Clients.All.SendAsync("NewTeamMemberAdded", name, member.Id);
-            return member.Id;
+            teamInfo.TeamMembers.Add(newTeamMember);
+            
+            broadcastService.NewTeamMemberAdded(newTeamMember.Name, newTeamMember.Id);
 
+            return newTeamMember.Id;
         }
 
 

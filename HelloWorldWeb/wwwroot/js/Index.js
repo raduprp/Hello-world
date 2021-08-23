@@ -12,6 +12,8 @@ connection.start().then(function () {
 });
 
 
+
+
 $(document).ready(function () {
     // see https://api.jquery.com/click/
 
@@ -135,3 +137,12 @@ function createNewcomer(name, id) {
 $("#clear").click(function () {
     $("#newcomer").val("");
 })
+
+function createNewLine(name, id) {
+    $("#teamMembers").append(
+        `<li class="member" member-id=${id}>
+<span class="name" >${name}</span>
+<span class="delete fa fa-remove" onclick="deleteMember(${id})"></span>
+<span class="pencil fa fa-pencil"></span>
+</li>`);
+}
