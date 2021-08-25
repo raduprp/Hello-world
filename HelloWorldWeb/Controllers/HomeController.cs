@@ -17,11 +17,13 @@ namespace HelloWorldWeb.Controllers
         // private readonly TeamInfo teamInfo;
         private readonly ITeamService teamService;
         private readonly ITimeService timeService;
-        public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService)
+        private readonly IBroadcastService broadcastService;
+        public HomeController(ILogger<HomeController> logger, ITeamService teamService, ITimeService timeService, IBroadcastService broadcastService)
         {
             this.logger = logger;
             this.teamService = teamService;
             this.timeService = timeService;
+            this.broadcastService = broadcastService;
         }
 
         [HttpGet]
@@ -32,8 +34,14 @@ namespace HelloWorldWeb.Controllers
 
         [HttpPost]
         public int AddTeamMember(string name)
+
         {
-            return teamService.AddTeamMember(new TeamMember(name, timeService));
+            TeamMember newTeamMembeer = new TeamMember(name, timeService);
+            var returnVal = teamService.AddTeamMember(newTeamMembeer);
+
+            broadcastService.NewTeamMemberAdded(newTeamMembeer.Name, newTeamMembeer.Id);
+
+            return returnVal;
 
         }
 
@@ -41,12 +49,15 @@ namespace HelloWorldWeb.Controllers
         public void DeleteTeamMember(int id)
         {
             this.teamService.DeleteTeamMember(id);
+            broadcastService.TeamMemberDeleted(id);
+            
         }
 
         [HttpPost]
         public void EditTeamMember(int id, string name)
         {
             this.teamService.EditTeamMember(id, name);
+
         }
 
         public IActionResult Index()
