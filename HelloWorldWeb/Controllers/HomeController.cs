@@ -51,6 +51,7 @@ namespace HelloWorldWeb.Controllers
 
         public IActionResult Index()
         {
+            
             return this.View(this.teamService.GetTeamInfo());
         }
 

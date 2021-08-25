@@ -1,7 +1,3 @@
-// <copyright file="Program.cs" company="Principal 33 Solutions">
-// Copyright (c) Principal 33 Solutions. All rights reserved.
-// </copyright>
-
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System;
