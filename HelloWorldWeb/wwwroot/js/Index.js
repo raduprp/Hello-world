@@ -109,8 +109,9 @@ function setEdit() {
 var createNewLine = (name, id) => {
     $("#teamList").append(`<li class="member" data-member-id="${id}">
                         <span class="memberName">${name}</span>
-                        <span class="delete fa fa-remove"></span>
+                      
                         <span class="edit fa fa-pencil"></span>
+                        <span class="delete fa fa-remove"></span>
                              </li>`);
     setDelete();
     setEdit();
