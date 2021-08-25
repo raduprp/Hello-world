@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="UnitTest1.cs" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<None Remove="TestData\ContentWeatherApi.json" />
 	</ItemGroup>
