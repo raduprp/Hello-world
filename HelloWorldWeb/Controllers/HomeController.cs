@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace HelloWorldWeb.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
@@ -34,7 +35,7 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        
         public int AddTeamMember(string name)
 
         {
@@ -48,7 +49,7 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        
         public void DeleteTeamMember(int id)
         {
             this.teamService.DeleteTeamMember(id);
@@ -57,7 +58,7 @@ namespace HelloWorldWeb.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        
         public void EditTeamMember(int id, string name)
         {
             this.teamService.EditTeamMember(id, name);
